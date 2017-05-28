@@ -3,11 +3,11 @@
 # ----------------------- #
 
 url: http://rainyfeeling.github.io
-title: My Octopress Blog
-subtitle: A blogging framework for hackers.
-author: Your Name
-simple_search: https://www.google.com/search
-description:
+title: 十八里坡－ 客栈
+subtitle: 往事并不如烟，经历还在继续
+author: 十八
+simple_search: http://google.com/search
+description: 十八里坡的随笔
 
 # Default date format is "ordinal" (resulting in "July 22nd 2007")
 # You can customize the format as defined in
