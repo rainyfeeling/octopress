@@ -3,7 +3,7 @@ layout: post
 title: "重新开始"
 date: 2015-02-02 22:23:57 +0800
 comments: true
-categories: 
+categories: 随笔
 ---
 
 这个博客又放了很久没更新了，好吧。终于今天又更新了

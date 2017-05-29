@@ -3,7 +3,7 @@ layout: post
 title: "Hello World from Octopress"
 date: 2013-11-25 21:19:57 +0800
 comments: true
-categorie: 
+categories: octopress
 ---
 花了一个晚上的时间，终于把这个博客给搭建起来了。效果还是挺满意的。这个计划N久了的事情终于开始了，看来有Macbook就要开始折腾了。
 
