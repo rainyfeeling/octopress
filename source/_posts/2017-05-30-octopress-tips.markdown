@@ -18,3 +18,7 @@ categories: octopress
 
 ### 关闭tweet插件
 编辑配置文件`_config.yml`，将twitter_tweet_button的配置改成`false`
+
+### 关于markdown格式的文档: 
+* https://help.github.com/articles/basic-writing-and-formatting-syntax/
+* https://guides.github.com/features/mastering-markdown/
