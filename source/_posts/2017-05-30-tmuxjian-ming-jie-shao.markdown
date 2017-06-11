@@ -9,12 +9,12 @@ categories: tmux
 ## tmux介绍
 tmux是一个多窗口终端工具，可以同时在多个终端(窗口)来回切换。而且还可以管理各个窗口，在窗口里面分屏等等。
 
-tmux里面的基本概念有: session, window和panel
+tmux里面的基本概念有: session, window和pane
 
 比如执行tmux命令，就产生产一个新的session。如果这时再执行创建窗口操作`CTRL+B, C`, 就会创建一个新window，这个window是属于当前session的。
-再执行分屏操作`CTRL+B, %`就新建了一个panel。
+再执行分屏操作`CTRL+B, %`就新建了一个pane。
 
-所以基本就是一个session可以包含很多window(窗口),  一个window(窗口)又可以包含多个panel。
+所以基本就是一个session可以包含很多window(窗口),  一个window(窗口)又可以包含多个pane。
 
 <!--more-->
 
@@ -35,9 +35,9 @@ tmux用的是默认配置, 没有做任何修改。也就说tmux的快捷键是`
 
 运行`tmux`命令, 可以看到最底下已经有一条绿色的状态栏，表示终端现在正在一个tmux的session里面。
 
-### 创建窗口和panel
-* 按`CTRL+B, %`在当前窗口水平分屏，创建一个新的panel
-* 按`CTRL+B, "`在当前窗口垂直分屏，创建一个新的panel
+### 创建窗口和pane
+* 按`CTRL+B, %`在当前窗口水平分屏，创建一个新的pane
+* 按`CTRL+B, "`在当前窗口垂直分屏，创建一个新的pane
 * 按`CTRL+B, C(reate)`创建新的窗口
 
 现在你的终端应该长的下图一样:
@@ -55,15 +55,15 @@ tmux用的是默认配置, 没有做任何修改。也就说tmux的快捷键是`
 * `CTRL+B, L(ast)`，表示切换到上一次(last)切换的窗口。
 
 
-### panel的切换
-* `CTRL+B, O(ther)`, 这里只能是一个panel，一个panel的切换
+### pane的切换
+* `CTRL+B, O(ther)`, 这里只能是一个pane，一个pane的切换
 * `CTRL+B, 箭头`，这时可以上下左右的切换。
 
-### 退出窗口或者panel
-在tmux的窗口或者命令行，输入`exit`命令就可以退出当前窗口或者panel。
+### 退出窗口或者pane
+在tmux的窗口或者命令行，输入`exit`命令就可以退出当前窗口或者pane。
 
 ### 历史记录浏览
-如果在窗口或者panel里，想往上翻页查询历史记录，那应该怎么办呢？
+如果在窗口或者pane里，想往上翻页查询历史记录，那应该怎么办呢？
 
 * 这时我们需要进入复制模式
    * 按`CTRL+B, [`进入复制模式。可以看到右上角显示一个黄色高亮块，表示当前正在复制模式。
