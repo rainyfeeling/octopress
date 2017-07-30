@@ -1,4 +1,16 @@
 <div class="sharing">
+  {% if site.weibo_share_button %}
+  <span>
+  <iframe 
+    width="86" 
+    scrolling="no" 
+    height="26" 
+    frameborder="0" 
+    src=
+    "http://hits.sinajs.cn/A1/weiboshare.html?url={{ page.url }}/&amp;type=6&amp;ralateUid=1756567041&amp;language=zh_cn" allowtransparency="true">
+  </iframe>
+  </span>
+  {% endif %}
   {% if site.twitter_tweet_button %}
   <a href="//twitter.com/share" class="twitter-share-button" data-url="{{ site.url }}{{ page.url }}" data-via="{{ site.twitter_user }}" data-counturl="{{ site.url }}{{ page.url }}" >Tweet</a>
   {% endif %}
