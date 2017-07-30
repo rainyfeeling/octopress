@@ -1,3 +1,15 @@
 {% comment %}
   Add content to be output at the bottom of each page. (You might use this for analytics scripts, for example)
 {% endcomment %}
+<script type="text/javascript">
+(function(){
+ var url = "http://widget.weibo.com/distribution/comments.php?width=0&url=http%3A%2F%2Fopen.weibo.com%2Fwidget%2Fcomments.php&appkey=3799059325&dpc=1";
+ document.write('<iframe id="WBCommentFrame" src="' + url + '" scrolling="no" frameborder="0" style="width:100%"></iframe>');
+ })();
+</script>
+<script src="http://tjs.sjs.sinajs.cn/open/widget/js/widget/comment.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+window.WBComment.init({
+		    "id": "WBCommentFrame"
+		    });
+</script>
