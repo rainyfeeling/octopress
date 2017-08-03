@@ -100,5 +100,7 @@ google_analytics_tracking_id:
 # Facebook Like
 facebook_like: false
 
+weibo_comments_enable: true
+
 # weibo_share button
 weibo_share_button: true
