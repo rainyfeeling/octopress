@@ -1,0 +1,14 @@
+{% if site.weibo_comments_enable  %}
+  <script type="text/javascript">
+    (function() {
+      var url = "http://widget.weibo.com/distribution/comments.php?width=0&url={{ page.url }}&appkey=3799059325&dpc=1";
+      document.write('<iframe id="WBCommentFrame" src="' + url + '" scrolling="no" frameborder="0" style="width:100%"></iframe>');
+  })();
+  </script>
+
+  <script src="http://tjs.sjs.sinajs.cn/open/widget/js/widget/comment.js" type="text/javascript" charset="utf-8"></script>
+
+  <script type="text/javascript">
+    window.WBComment.init({"id": "WBCommentFrame"});
+  </script>
+{% endif %}
