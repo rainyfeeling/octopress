@@ -1,4 +1,7 @@
 {% if site.weibo_comments_enable  %}
+{% if page.url != '/index.html' and page.url != '/blog/archives/index.html' %}
+  {% if page.url contains '/blog/categories/' %}
+  {% else %}
   <script type="text/javascript">
     (function() {
       var url = "http://widget.weibo.com/distribution/comments.php?width=0&url={{ page.url }}&appkey=3799059325&dpc=1";
@@ -11,4 +14,6 @@
   <script type="text/javascript">
     window.WBComment.init({"id": "WBCommentFrame"});
   </script>
+  {% endif %}
+{% endif %}
 {% endif %}
