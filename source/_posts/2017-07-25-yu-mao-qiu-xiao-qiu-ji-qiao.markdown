@@ -3,7 +3,7 @@ layout: post
 title: "羽毛球小球技巧"
 date: 2017-07-25 23:29:40 +0800
 comments: true
-categories: 
+categories: 羽毛球
 ---
 *小球技巧:*
 
