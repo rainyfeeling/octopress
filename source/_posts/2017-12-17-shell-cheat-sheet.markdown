@@ -11,11 +11,17 @@ categories: shell
 ## 语句分隔符  `;`
 * 如果一行只有一条命令，不需要分隔符
 * 如果一行有多条命令，则每条命令后面需要加`;`
+
 ```
+
 until TEST-COMMANDS; do CONSEQUENT-COMMANDS; done
+
 ```
+
 * 如果多行的话，不需要分隔符，直接用`\n`
+
 ```
+
 # 上面的单行命令变成了多行
 until TEST-COMMANDS
 do CONSEQUENT-COMMANDS
@@ -25,10 +31,13 @@ done
 if [ x"$STR" = "x" ]; then
 	echo "STR is empty!"
 fi
+
 ```
 
 ## 变量名
+
 ```
+
 MY_VAL=josh
 echo $MY_VAL            # 显示单独的变量,变量前加$
 echo "var is: $MY_VAL"  # 显示变量和文本，要用双引号""
@@ -37,12 +46,15 @@ echo "${MY_VAL}_file"   # 显示变量和文本连接在一起，要加大括号
 echo ${!MY_VAL}         # 如果MY_VAL的值是josh,则显示$josh的内容
 
 VAL="$#"; echo ${!VAL}  # 显示最后一个变量的值
+
 ```
 
 <!--more-->
 
 ## eval表示纯粹的字符串替换，然后执行
+
 ```
+
 VAL="echo \$$#"
 eval $VAL
 # 先将$VAL表示出来, 假设$#等于4，$VAL即为"echo \$4"
@@ -50,16 +62,21 @@ eval $VAL
 
 VAL="echo \$$#"
 LAST=`eval $VAL` 		# LAST等于执行后的结果,即最后一个变量的值
+
 ```
 
 ## shell内部变量
 * 参数
 	* `$1`, `$2`... `$9`, 表示参数，只能显示1~9个
 	*  `shift`命令可以让参数移一位。原来的第9个现在就是第10个参数了
+
 ```
+
 shift
 echo $9  # 第10个参数
+
 ```
+
 * `$#` 表示参数的个数，如果为0，表示没有参数
 * `$?` 表示上一条命令的返回值， 0表示成功，否则表示失败
 * `$*` 表示一个字串，这个字串包含所有参数
@@ -99,7 +116,9 @@ echo $9  # 第10个参数
 `-e, -f, -d` and etc.
 
 ### 举例
+
 ```
+
 if [ $x -eq 2 ];   then xxx; fi # 数字比较
 if [ $x -ne "2" ]; then xxx; fi # 数字比较
 if [ $x != "2" ];  then xxx; fi # 字串比较
@@ -110,17 +129,22 @@ if [ $? = 0 ];     then xxx; fi # 上条命令执行成功就
 
 
 if [ ! -f $x ] && [ $1 != "abc" ]; then xxx; fi # 文件不存在,并且$1不等于abc
+
 ```
 
 ## shell变量作用域
 * 当执行一个脚本时，会新生成一个shell进程去执行，而新生成的进程并不会知道调用者线程里定义的变量。
 * 假如想让运行的脚本也知道当前的变量的话，就需要用`. xxx.sh`或者`source xxx.sh`。这样就不会打开新的shell进程。而是在当前进程里面执行新的脚本。
+
 ```
+
 # 加了.号，表示不要新开shell进程。这样就能继承现有的变量
 . ./my_shll.sh
 
 source my_shell.sh
+
 ```
+
 * 如果一个脚本调用了`cd xxx`,当这个脚本退出的时候，当前目录却还是原来的目录。因为只是在哪个脚本里的当前目录变了，如果退出了，则那个脚本的线程已经退出了。
 
 ## 文件描述符 (相当于打开了一个文件句柄)
@@ -134,7 +158,9 @@ source my_shell.sh
 * `exec`命令不会生成一个新的进程，它会用他的binary将当前的shell进程给替换掉，然后运行完退出。变量会传到exec里面去
     * exec可以节省些资源
     * exec可以用来打开文件描述符
+
 ```
+
 cd /dev/fd
 exec 3< ~/temp.txt        # 新建一个file descriptor 3 (/dev/fd/3), 里面的内容是从~/temp.txt里读过来的。
 cat 3                     # file descriptor 3里面的内容跟temp.txt是一样的。  
@@ -144,17 +170,23 @@ cat thatfile              # 可以看到上面语句写的字符串也已经写�
 exec 8<> tother           # open "tother" for reading and writing on fd 8
 exec 3<&-                 # close the read file descriptor 3
 exec 4<&-
+
 ```
+
     
 ## vim
 ### vim里面更改只读文件
+
 ```
+
 :w ! sudo tee %
+
 ```
 
 ### vim显示16进制
 
 ```
+
 # vim -b 打开文件不会加回车
 
 # 显示16进制
@@ -162,10 +194,15 @@ exec 4<&-
 
 # 从16进制返回
 :% ! xxd -r
+
 ```
+
 ## dd 用法
+
 ```
+
 dd if=/dev/zero ibs=1k count=2 | tr "\000" "\377" > AllFF.bin
+
 ```
 
 ## tr用法
@@ -174,6 +211,7 @@ dd if=/dev/zero ibs=1k count=2 | tr "\000" "\377" > AllFF.bin
 * `-t`: 替换
 
 ```
+
 # 去掉空格
 $ echo "fdsfsA5 45gbmcRR" | tr -d ' '
 
@@ -206,14 +244,19 @@ vi filename
     *  `\056`: 8进制数
 
 ### 字符串操作
+
 ```
+
 # 截取字符串的前两个 从1开始，取2个字符
 echo abcdefg | awk '{print substr($0,1,2)}'
+
 ```
 
 ### 10进制，16进制转换
 * awk
+
 ```
+
  echo 530 | awk '{printf("%04x", $1)}'
  
  # 将一个大数变成16进制，而且裁成两部分
@@ -222,11 +265,15 @@ echo abcdefg | awk '{print substr($0,1,2)}'
  # sed 匹配行首，行末位置 ^, $
  # sed 匹配字符 ^.. 匹配行首的前两个字符。
  sed 's/^../&,/'   # 找到行首第二个字符，然后添加一个,号。其中&表示匹配的部分。
+
 ```
 
 * bc
+
 ```
+
 echo 'obase=16; 77' | bc 
+
 ```
 
 
@@ -235,6 +282,7 @@ echo 'obase=16; 77' | bc
 http://www.cnblogs.com/killkill/archive/2010/06/23/1763785.html
 
 ```
+
 # -n 是不要加回车
 echo -n -e "\xf1\x19\x07\x2b\x3e\x24\x2c\x2c\xbe\x96\x18\x71\x1f\x91\xa8\x69" > tt.bin
 md5sum tt.bin
@@ -248,7 +296,9 @@ a8b5f2dcdccfe7c8ec18060c12820e98 *-
 
 ### hexdump和xxd的区别 (慎用hexdump，只用xxd)
 通过以下例子可以知道`xxd` 和 `hexdump -C` 是一样的。
+
 ```
+
 ➜  whitedwarf:rsa_pub_format_test  echo -n -e "\xf1\x19" | xxd 
 0000000: f119                                     ..
 
@@ -261,6 +311,7 @@ a8b5f2dcdccfe7c8ec18060c12820e98 *-
 ➜  whitedwarf:rsa_pub_format_test  echo -n -e "\xf1\x19" | hexdump 
 0000000 19f1                                   
 0000002
+
 ```
 
 ### xxd的用法
@@ -268,6 +319,7 @@ a8b5f2dcdccfe7c8ec18060c12820e98 *-
 `-i`: 可以生成c语言格式的字串
 
 ```
+
 # 将字符串转成16进制数
 $ echo -n "Josh what's" | xxd -i
 0x4a, 0x6f, 0x73, 0x68, 0x20, 0x77, 0x68, 0x61, 0x74, 0x27, 0x73
@@ -275,6 +327,7 @@ $ echo -n "Josh what's" | xxd -i
 # 再通过tr去掉空格
 $ echo -n "Josh what's" | xxd -i | tr -d ' '
 0x4a,0x6f,0x73,0x68,0x20,0x77,0x68,0x61,0x74,0x27,0x73
+
 ```
 
 ## 用quilt来生成patch, 这个可以用来往一些patch系统(比如Buildroot)里面加东西
@@ -289,18 +342,26 @@ Basic patch process
 * there is already a patches directory, then copy the patch files into the existing directory to avoid overwriting the existing patches
 
 ## Display process information:
+
 ```
+
 ps axjf	# display prcess tree
 ps –ejH	# ditto
+
 ```
 
 ## kill杀死进程
+
 ```
+
 kill -9 <pid>
+
 ```
 
 ## grep搜索字符串
+
 ```
+
 # 在所有文件里搜索QT5字串,包括子目录. 但是没有包括隐藏目录?!
 grep -r <搜索文本> <什么文件>
 grep -nR QT5 *
@@ -310,10 +371,13 @@ grep -v -- <不需要包括的字符>
 
 #如果grep认为文件不是文本文件，可以指定类型
 grep --binary-files=text
+
 ```
 
 ## git grep 搜索宏定义，然后查找哪些是没有用过的
+
 ```
+
 # 1. 将所有搜到的宏定义存到macros文件
 git grep -h "#define" | awk -F: '{print $2}'| sed 's/^[/ \t\n]*//g' | awk '{print $2}' | sed 's/(.*$//g'  > macros
 
@@ -333,10 +397,13 @@ COUNT=`git grep $1 | wc -l`
 echo -e "$1\t: ${COUNT}"
 
 # 3. grep -w 1 macro_usage.txt > macro_not_used
+
 ```
 
 ## find查找文件名或目录
+
 ```
+
 find . -name "*.sh"
 
 # 查找比file.txt更新的所有文件
@@ -344,10 +411,13 @@ find . -type f -newer file.txt -print
 
 # 在当前目录下查找名字为sama5d2_xplained的目录,不包括子目录
 find . -maxdepth 1 -type d -name '*sama5d2_xplained*'
+
 ```
 
 ## 批量更改名字(sed)
+
 ```
+
 for files in `find . -name "CSRMesh*" -type d`;do;git mv $files `echo "$files" | sed 's/CSRMesh/CSRmesh/'`;done
 
 
@@ -358,15 +428,22 @@ do
         # echo "$files" | sed 's/boot/boot-sd/'
         mv $files `echo "$files" | sed 's/boot/boot-sd/'`
 done
+
 ```
 
 ## xargs
 ### xargs: 在所有.h文件里搜索"fs"
+
 ```
+
 find . -name "*.h" | xargs grep "fs" 
+
 ```
+
 ### xargs: 将xargs里面的数组一个一个的取出来执行
+
 ```
+
 find . -name "*.h" | xargs -I {} cat {}
 
 find . -name "*.h" | xargs -n 1 echo
@@ -376,27 +453,38 @@ find . -name "switcher.bin" | xargs -n 1 -I {} ./test.sh {}
 
 # 一次删除所有branch
 git br | xargs -I {} git branch -d {}
+
 ```
 
 ### xargs: 将xargs里面的数组一个一个的取出来做复杂运算
+
 ```
+
 find . -name "Config.in*" | xargs -n 1 ./change.sh
+
 ```
 
 ### 另外一种查找文件，然后执行的方法
+
 ```
+
 find . -name install.sh | while read installer ; do sh -c "${installer}" ; done
+
 ```
 
 ### 获得git里面所有modified文件列表
+
 ```
+
 git status -s | grep M | awk '{print $2}' 
 
 # 对这些文件做 dos2unix
 git status -s | grep M | awk '{print $2}' | xargs -n1 dos2unix
+
 ```
 
 ```
+
 # change.sh: run git mv to rename the files
 #!/bin/bash
 
@@ -404,44 +492,62 @@ NEW_NAME=`echo $1 | sed s/Config.in/Kconfig/`
 #echo $NEW_NAME
 
 git mv $1 $NEW_NAME
+
 ```
 
 ### egrep 抽取字符串
+
 ```
+
 # 得到所有href="xxx"的字串
 egrep -o "href=[^>]*" dl.html
+
 ```
 
 ## tail 显示dmesg
+
 ```
+
 tail -f /var/log/syslog
 tail -f /var/log/{messages,kernel,dmesg,syslog}
+
 ```
 
 ## {} 用来生成组合
+
 ```
+
 echo {a,b}{a,b}
 aa ab ba bb
 
 cp file{,.bak}
 cp file file.bak
+
 ```
 
 ## random随机数打印
+
 ```
+
 printf "%04x\n" $RANDOM
 echo "obase=16;$RANDOM" | bc
+
 ```
 
 ## rsync拷贝文件,除了某个目录
+
 ```
+
 # -a: archive mode, 包括-r etc.
 # -v: verbose
 rsync -av test support-issue --exclude "output/"
+
 ```
 
 ## for循环
+
 ```
+
 # 循环一个字符串数组
 PROJECT_LIST="linux4sam_wiki at91_sd_boot"
 for PROJECT in $PROJECT_LIST
@@ -451,10 +557,13 @@ done
 
 # 数字循环
 for num in `seq 0 6`;do;echo file${num};done
+
 ```
 
 ### 批量文件copy/改名
+
 ```
+
 for file in `ls sama5d3*revc_pda7*dts`; do; cp $file `echo $file | sed 's/pda7/pda4/'`; done
 
 #！/bin/bash
@@ -465,39 +574,60 @@ do
 
         git mv $files `echo "$files" | sed 's/boot/boot-sd/'`
 done
+
 ```
 
 #### 将空格文件夹改名字
 * 在空格文件夹的同级目录上建立一个shell脚本: test.sh
+
 ```
+
 ## tesh.sh
 #!/bin/bash
 _renamed=`echo $1 | sed 's/\ /_/'`
 mv "$1" $_renamed
+
 ```
+
 * 把上面的文件加上执行权限
+
 ```
+
 chmod +x test.sh
+
 ```
+
 * 然后执行命令
+
 ```
+
 find . -maxdepth 1 -type d -name '* *'|  xargs -n 1 -I {} ./tesh.sh {}
+
 ```
 
 ## !! 上一条命令
+
 ```
+
 sudo !!
+
 ```
 
 ## cd - 上一个目录
+
 ```
+
 cd -
+
 ```
 
 ## ssh
+
 ```
+
 # 连上melon并执行一条命令
 ssh melon cat ~/work/env.sh
+
 ```
 
 ### ssh用法
@@ -505,27 +635,35 @@ http://linux.icydog.net/ssh/piping.php
 ssh -vvv
 
 ## sudoer with no password
+
 ```
+
 user=josh
 sudo adduser $user sudo
 sudo adduser $user dialout
 
 echo "$user ALL=(ALL) NOPASSWD: ALL" | sudo tee /etc/sudoers.d/$user
 sudo chmod 440 /etc/sudoers.d/$user
+
 ```
 
 ## 文件/目录属性设置
 文件/目录一般会有三列，分别为owner(u), group(g), others(o)。在chmod里面用u, g, o来表示。
 
 比如要让一个目录所有人都能读的话，就可以把rx属性加给others
+
 ```
+
 # -R 表示包含所有子目录
 chmod -R o+rx xxx_path/
+
 ```
 
 ## cut用法
 grep 字符, 只把文件名打印出来:
+
 ```
+
 # cut: 
 # -f 和 -d要一起用
 #  -f num :第几个字段
@@ -536,24 +674,29 @@ grep 字符, 只把文件名打印出来:
 git grep video= | cut -d: -f 1 | uniq
 
 echo "$BOARD_DIRS" | cut -d\ -f 1
+
 ```
 
 ## nm 列出.so .a文件里面的所有函数
 
 
 ## dpkg查找pakage安装的文件
+
 ```
+
 # dpkg查找pakage安装的文件
 dpkg -L <包名>
 
 # dpkg通过文件查找对应得安装包
 dpkg -S <文件path>
+
 ```
 
 ## 管道命令重定向
 http://www.cyberciti.biz/faq/linux-redirect-error-output-to-file/
 
 ```
+
 stdin (0)
 stdout (1)
 stderr (2)
@@ -563,24 +706,34 @@ command2 -f -z -y > out.txt 2> err.txt
 
 command1 > everything.txt 2>&1
 command1 -arg > everything.txt 2>&1
+
 ```
 
 ## crontab命令
+
 ```
+
 crontab -l
 crontab -e
 # 分 时 日 月 周
   10 5  *  *  0 /home/fred/foo.ksh  # 每周日5点10分
 # 分       时 日 月 周
   [1-10]/3 23 1  8  *   xxx.sh      # 8月1日, 23点的1, 4, 7, 10分执行
+
 ```
+
 下面设置一条命令，每天早上5点会fetch git repo
+
 ```
+
 0 5 * * * ~/work/at91/kernel/fetch_all.sh >> ~/work/at91/kernel/runlog.txt 2>&1
+
 ```
 
 fetch_all.sh的脚步内容
+
 ```
+
 #!/bin/sh
 TOP_DIR="~/work/at91/kernel"
 PATH=$PATH:/home/josh/bin
@@ -595,25 +748,38 @@ echo ""
 cd - > /dev/null 2>&1
 
 ```
+
 * 可以在/var/log/syslog里面看到cron命令是否执行
 * cron job是没有output的，所以它会将output作为邮件发出来，可以在/var/spool/mail/josh里面看到。如果没有装mail工具的话，会报错
+
 ```
+
 (CRON) info (No MTA installed, discarding output
+
 ```
+
 这样的话，可以按照postfix
+
 ```
+
 sudo apt-get install postfix
+
 ```
 
 * 启动cron服务的命令
+
 ```
+
 // @ubuntu 14.04
 sudo service cron restart
+
 ```
 
 
 ## 日期和时间戳转换函数
+
 ```
+
 ➜  whitedwarf:zigbee-3.0 git:(develop) ✗ date
 2017年 01月 10日 星期二 15:35:25 CST
 ➜  whitedwarf:zigbee-3.0 git:(develop) ✗ date +%s
@@ -634,23 +800,30 @@ sudo service cron restart
 ➜  whitedwarf:zigbee-3.0 git:(develop) ✗ date -d "@4294967296"
 2106年 02月 07日 星期日 14:28:16 CST
 ➜  whitedwarf:zigbee-3.0 git:(develop) ✗ 
+
 ```
 
 ## 日期格式
+
 ```
+
 $ date "+%Y/%m/%d %H:%M:%S"
 2017/07/11 12:38:47
 
 $ date -u "+%Y/%m/%d %H:%M:%S UTC"
 2017/07/11 04:39:35 UTC
+
 ```
 
 ## shell脚本控制命令行颜色
 https://zybuluo.com/mdeditor#88762
 
 ## 源文件代码行数的计算
+
 ```
+
 cloc --no3 --by-file-by-lang
+
 ```
 
 ## 正则表达式
@@ -659,8 +832,11 @@ cloc --no3 --by-file-by-lang
 * 参考: http://dragon.cnblogs.com/archive/2006/05/08/394078.html
 
 ```
+
 [ ] \ ^ $ . | ? * + ( )
+
 ```
+
 * `.` : 表示一个字符
 * `*` : 表示重复0次或者多次
 * `+` : 表示重复1次或者多次
@@ -684,10 +860,12 @@ cloc --no3 --by-file-by-lang
 `\s`: 代表空格是Tab字符
 
 ### 测试正则表达式:
+
 ```
 
 # 删除(到行尾的所有内容， $表示到行末，^表示从行首开始。
 echo "josh(fdfd)" | sed 's/(.*$//'
+
 ```
 
 
