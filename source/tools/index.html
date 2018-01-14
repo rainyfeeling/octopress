@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>Image Gallery</title>
+    <script type="text/javascript" src="javascripts/vue.js"></script>
+    <link rel="stylesheet" href="styles/layout.css" type="text/css" media="screen" />
+</head>
+
+<body>
+    <h1>Random Numbers, Letters Reader</h1>
+
+    <p id="description">{{ message }}</p>
+    <div id="app-5">
+        <p>{{ message }}</p>
+        <button v-on:click="reverseMessage">生成随机数</button>
+    </div>
+    <audio id="mp3_1" src="assets/mp3/1.mp3" />
+    <audio id="mp3_2" src="assets/mp3/2.mp3" />
+    <audio id="mp3_3" src="assets/mp3/3.mp3" />
+    <audio id="mp3_4" src="assets/mp3/4.mp3" />
+    <audio id="mp3_5" src="assets/mp3/5.mp3" />
+    <audio id="mp3_6" src="assets/mp3/6.mp3" />
+    <audio id="mp3_7" src="assets/mp3/7.mp3" />
+    <audio id="mp3_8" src="assets/mp3/8.mp3" />
+    <audio id="mp3_9" src="assets/mp3/9.mp3" />
+    <audio id="mp3_0" src="assets/mp3/0.mp3" />
+    <audio id="mp3_a" src="assets/mp3/a.mp3" />
+    <audio id="mp3_b" src="assets/mp3/b.mp3" />
+    <audio id="mp3_c" src="assets/mp3/c.mp3" />
+    <audio id="mp3_d" src="assets/mp3/d.mp3" />
+    <audio id="mp3_e" src="assets/mp3/e.mp3" />
+    <audio id="mp3_f" src="assets/mp3/f.mp3" />
+    <audio id="mp3_g" src="assets/mp3/g.mp3" />
+    <audio id="mp3_h" src="assets/mp3/h.mp3" />
+    <audio id="mp3_i" src="assets/mp3/i.mp3" />
+    <audio id="mp3_j" src="assets/mp3/j.mp3" />
+    <audio id="mp3_k" src="assets/mp3/k.mp3" />
+    <audio id="mp3_l" src="assets/mp3/l.mp3" />
+    <audio id="mp3_m" src="assets/mp3/m.mp3" />
+    <audio id="mp3_n" src="assets/mp3/n.mp3" />
+    <audio id="mp3_o" src="assets/mp3/o.mp3" />
+    <audio id="mp3_p" src="assets/mp3/p.mp3" />
+    <audio id="mp3_q" src="assets/mp3/q.mp3" />
+    <audio id="mp3_r" src="assets/mp3/r.mp3" />
+    <audio id="mp3_s" src="assets/mp3/s.mp3" />
+    <audio id="mp3_t" src="assets/mp3/t.mp3" />
+    <audio id="mp3_u" src="assets/mp3/u.mp3" />
+    <audio id="mp3_v" src="assets/mp3/v.mp3" />
+    <audio id="mp3_w" src="assets/mp3/w.mp3" />
+    <audio id="mp3_x" src="assets/mp3/x.mp3" />
+    <audio id="mp3_y" src="assets/mp3/y.mp3" />
+    <audio id="mp3_z" src="assets/mp3/z.mp3" />
+</body>
+
+</html>
+
+<script type="text/javascript">
+    var app2 = new Vue({
+        el: '#description',
+        data: {
+            message: 'Click the button to generate 4 random numbers:'
+        }
+    })
+
+    function randomNum() {
+        var str = "";
+        var len = 6;
+        var i;
+        for (i = 0; i < len; i++) {
+            str += Math.floor(Math.random() * 10);
+        }
+        return str;
+    }
+
+    function play(name) {
+        var aud_name = "mp3_" + name;
+        var aud = document.getElementById(aud_name);
+        aud.play();
+    }
+
+    function string_player() {
+        this.name = "";
+        this.index = 0;
+        this.interval = 1000;
+
+        this.songs = new Array();
+    }
+
+    string_player.prototype.check_next = function() {
+        // check if the array is empty. if not empty then play next string.
+        if (this.songs.length != 0) {
+            this.delay_play(this.songs.shift(), 2000);
+        }
+
+        return;
+    }
+
+    string_player.prototype.count = function() {
+        if (this.name == "" || this.name == null) {
+            this.check_next();
+            return;
+        }
+
+        if (this.index == this.name.length) {
+            this.check_next();
+            return;
+        }
+
+        play(this.name[this.index]);
+        this.index++;
+
+        setTimeout(() => {
+            this.count();
+        }, this.interval);
+    }
+
+    string_player.prototype.delay_play = function(song, delay) {
+        if (song != "" && song != null)
+        {
+            this.name = song;
+            this.index = 0;
+        }
+
+        setTimeout(() => {
+            this.count();
+        }, delay);
+    }
+
+    string_player.prototype.play = function(song) {
+        if (song != "" && song != null)
+        {
+            this.name = song;
+            this.index = 0;
+        }
+
+        this.count();
+    }
+
+    var app5 = new Vue({
+        el: '#app-5',
+        data: {
+            message: ''
+        },
+        methods: {
+            reverseMessage: function() {
+                var i;
+                var NUMBERS = 4;
+                var str = '';
+                var number;
+                var x = new string_player();
+
+                for (i = 0; i < NUMBERS; i++) {
+                    number = randomNum();
+                    x.songs.push(number);
+                    str += number + ' ';
+                }
+
+                this.message = str;
+                x.play();
+            }
+        }
+    })
+</script>
