@@ -155,7 +155,11 @@
 
                 for (i = 0; i < NUMBERS; i++) {
                     number = randomNum();
+
+                    // one number will read twice.
                     x.songs.push(number);
+                    x.songs.push(number);
+
                     str += number + ' ';
                 }
 
