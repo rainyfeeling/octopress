@@ -200,7 +200,6 @@
         this.count();
     }
 
-    var x = new string_player();
     var y = new numbers_array();
 
     var app5 = new Vue({
@@ -219,9 +218,6 @@
                     number = randomNum();
 
                     // one number will read twice.
-                    x.songs.push(number);
-                    x.songs.push(number);
-
                     y.add(number);
                     y.add(number);
 
@@ -229,7 +225,6 @@
                 }
 
                 this.message = str;
-                x.play();
 
                 // test code here:
                 while (!y.is_empty()) {
