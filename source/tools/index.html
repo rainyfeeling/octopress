@@ -42,7 +42,7 @@
     }
 
     function playNextNumber() {
-        var player = document.getElementsById('player');
+        var player = document.getElementsByTagName('audio')[0];
 
         if (!y.is_empty()) {
             var str = y.next();
@@ -51,7 +51,7 @@
         }
     }
     function registerPlayer() {
-        var player = document.getElementsById('player');
+        var player = document.getElementsByTagName('audio')[0];
         player.addEventListener('ended', playNextNumber, false);
     }
 
