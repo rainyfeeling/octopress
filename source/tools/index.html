@@ -81,6 +81,67 @@
         aud.play();
     }
 
+    // -------------------
+    // numbers_array class
+    // -------------------
+
+    // numbers array is data object.
+    function numbers_array() {
+        this.num = "";
+        this.idx = 0;
+        this.arr = new Array();
+
+        this._begin = true;
+    }
+
+    numbers_array.prototype.pop_from_array = function() {
+        if (this.arr.length != 0)
+        {
+            this.num = this.arr.shift();
+            this.idx = 0;
+        }
+    }
+
+    // -------------------
+    // Exported functions
+    //
+    numbers_array.prototype.is_empty = function() {
+        if (this.idx >= this.num.length && this.arr.length == 0)
+            return true;
+    }
+
+    // cannot add a empty string.
+    numbers_array.prototype.add = function(str) {
+        if (str != null && str != "")
+            this.arr.push(str);
+    }
+
+    // return one next letter. If it's empty, return "".
+    numbers_array.prototype.next = function() {
+        var ret = "";
+
+        if (this.is_empty())
+            return ret;
+
+        // if current num is empty, then pop from the array.
+        if (this.idx >= this.num.length)
+            this.pop_from_array();
+
+        if (this.idx < this.num.length) {
+            ret = this.num[this.idx];
+            this._begin = (this.idx == 0);
+            this.idx++;
+        }
+
+        return ret;
+    }
+    numbers_array.prototype.is_begin = function() {
+        return this._begin;
+    }
+
+    // -------------------
+    // string_player class
+    // -------------------
     function string_player() {
         this.name = "";
         this.index = 0;
