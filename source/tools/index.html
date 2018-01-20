@@ -47,7 +47,15 @@
         if (!y.is_empty()) {
             var str = y.next();
             player.src = "/assets/mp3/" + str + ".mp3";
-            player.play();
+            if (y.is_begin()) {
+                setTimeout(() => {
+                    player.play();
+                }, 2000);
+            } else {
+                player.play();
+            }
+        } else {
+            player.src = "/assets/mp3/ready.mp3";
         }
     }
     function registerPlayer() {
