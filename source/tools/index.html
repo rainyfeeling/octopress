@@ -201,6 +201,7 @@
     }
 
     var x = new string_player();
+    var y = new numbers_array();
 
     var app5 = new Vue({
         el: '#app-5',
@@ -221,11 +222,21 @@
                     x.songs.push(number);
                     x.songs.push(number);
 
+                    y.add(number);
+                    y.add(number);
+
                     str += number + ' ';
                 }
 
                 this.message = str;
                 x.play();
+
+                // test code here:
+                while (!y.is_empty()) {
+                    console.log(y.next());
+                    if (y.is_begin())
+                        console.log("first letter:");
+                }
             }
         }
     })
