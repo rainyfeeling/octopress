@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Ubuntu 14.04上安装Octopress"
+title: "Ubuntu 14.04/18.04上安装Octopress"
 date: 2017-05-28 22:47:29 +0800
 comments: true
 categories: octopress
@@ -42,6 +42,8 @@ Bundler version 1.15.0
 `Gemfile`: Gemfile里面包括批量的gem, 而且可以指定依赖关系和版本要求。
 	`bundle install`读取当前目录的Gemfile来安装里面指定的gems
 
+`Gemfile.lock`: Gemfile.lock是生成的文件，里面包括当前环境相关路径信息。如果在不同的环境下这个文件需要重新生成
+
 `rake`: 一个ruby应用，通过gem可以安装，是ruby in rail里的组件。可以理解成linux里面的make
 
 `rakefile`: 很像makefile，指定rake执行的任务
@@ -64,6 +66,8 @@ Codename:       trusty
 ```
 ruby版本1.9.3
 ```
+➜  sudo apt-get install ruby-dev
+
 ➜  octopress ruby --version
 ruby 1.9.3p484 (2013-11-22 revision 43786) [x86_64-linux]
 ```
@@ -82,10 +86,12 @@ CHANGELOG.markdown  config.rb  config.ru  _config.yml  Gemfile  plugins  Rakefil
 # 安装bundle, 如果已经安装了就可以略过这一步
 ➜  gem install bundle
 
+# NOTE: 可以安装指定的版本，比如: `gem install rake -v 10.5.0`
+
 # 根据Gemfile来安装相应的依赖。
 ➜  bundle install
 
-# NOTE: 我遇到了有一个插件要求ruby 2.0.0，但是我的版本是1.9.3。但是重新运行了几次就成功了？！
+# NOTE: 在ubuntu 18.04版本上, 由于rake的版本不一样，在执行`rake`命令的时候需要执行`bundler exec rake`
 ```
 
 ## 3. 配置Octopress
